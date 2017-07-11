@@ -14,6 +14,8 @@ a AdvertisingScrollView,can scroll auto,or by yourself.
 Installation with CocoaPods：pod 'MS_ScrollViewSwift'
 或者下载demo
 
+[Object-c版本点这里](https://github.com/yuanshuainiuniu/AdvertisingScrollView-banner "悬停显示”)
+
 init：
 ```swift
 let urlArr = []
