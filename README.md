@@ -11,21 +11,20 @@
 a AdvertisingScrollView,can scroll auto,or by yourself.
 
 使用方式:
-Installation with CocoaPods：pod 'MS_ScrollView'
+Installation with CocoaPods：pod 'MS_ScrollViewSwift'
 或者下载demo
 
-Drag`MSScrollView.h` `MSScrollView.m` to your project<br>
 init：
-```Objective-c
-NSArray *array = @[@"1.jpg",@"2.jpg",@"3.jpg"];
-CGRect frame = CGRectMake(0, 0, self.view.frame.size.width, 105);
-MSScrollView *scrollView = [[MSScrollView alloc] initWithFrame:frame
-                                                        images:array
-                                                      delegate:self
-                                                     direction:MSCycleDirectionHorizontal
-                                                      autoPlay:YES
-                                                         delay:5.0];
-[self.view addSubview:scrollView];
+```swift
+let urlArr = []
+let msScrollView = MSScrollView()
+msScrollView.frame = CGRect.init(x: 0, y: 30, width: self.view.frame.size.width, height: 200)
+msScrollView.isAutoPlay = true
+msScrollView.timeInterval = 4
+msScrollView.pageControlOffset = UIOffset.init(horizontal: -5, vertical: 5)
+msScrollView.pageControlDir = MSPageControlDirection.MSPageControl_Right
+self.view.addSubview(msScrollView)
+msScrollView.urlImages = urlArr
 /*
  frame:set MSScrollView frame
  images:your imagenames
