@@ -12,9 +12,10 @@
 		F37F08201F14B46F00A5EDA0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F37F081E1F14B46F00A5EDA0 /* Main.storyboard */; };
 		F37F08221F14B46F00A5EDA0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F37F08211F14B46F00A5EDA0 /* Assets.xcassets */; };
 		F37F08251F14B46F00A5EDA0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F37F08231F14B46F00A5EDA0 /* LaunchScreen.storyboard */; };
-		F37F083B1F14C3E800A5EDA0 /* CustomerPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37F08381F14C3E800A5EDA0 /* CustomerPageControl.swift */; };
-		F37F083C1F14C3E800A5EDA0 /* MSScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37F08391F14C3E800A5EDA0 /* MSScrollView.swift */; };
-		F37F083D1F14C3E800A5EDA0 /* MSSource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F37F083A1F14C3E800A5EDA0 /* MSSource.bundle */; };
+		F37F08301F14B4A700A5EDA0 /* CustomerPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37F082D1F14B4A700A5EDA0 /* CustomerPageControl.swift */; };
+		F37F08311F14B4A700A5EDA0 /* MSScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37F082E1F14B4A700A5EDA0 /* MSScrollView.swift */; };
+		F37F08321F14B4A700A5EDA0 /* MSSource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F37F082F1F14B4A700A5EDA0 /* MSSource.bundle */; };
+		F37F08411F14D1D500A5EDA0 /* String+MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37F08401F14D1D500A5EDA0 /* String+MD5.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,10 +26,10 @@
 		F37F08211F14B46F00A5EDA0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F37F08241F14B46F00A5EDA0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F37F08261F14B46F00A5EDA0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F37F08331F14B61100A5EDA0 /* MSScrollViewSwift-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MSScrollViewSwift-Bridging-Header.h"; sourceTree = "<group>"; };
-		F37F08381F14C3E800A5EDA0 /* CustomerPageControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomerPageControl.swift; sourceTree = "<group>"; };
-		F37F08391F14C3E800A5EDA0 /* MSScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MSScrollView.swift; sourceTree = "<group>"; };
-		F37F083A1F14C3E800A5EDA0 /* MSSource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MSSource.bundle; sourceTree = "<group>"; };
+		F37F082D1F14B4A700A5EDA0 /* CustomerPageControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomerPageControl.swift; sourceTree = "<group>"; };
+		F37F082E1F14B4A700A5EDA0 /* MSScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MSScrollView.swift; sourceTree = "<group>"; };
+		F37F082F1F14B4A700A5EDA0 /* MSSource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MSSource.bundle; sourceTree = "<group>"; };
+		F37F08401F14D1D500A5EDA0 /* String+MD5.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+MD5.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,7 +46,7 @@
 		F37F080E1F14B46F00A5EDA0 = {
 			isa = PBXGroup;
 			children = (
-				F37F08371F14C3E800A5EDA0 /* MSScrollView */,
+				F37F082C1F14B4A700A5EDA0 /* MSScrollView */,
 				F37F08191F14B46F00A5EDA0 /* MSScrollViewSwift */,
 				F37F08181F14B46F00A5EDA0 /* Products */,
 			);
@@ -68,20 +69,19 @@
 				F37F08211F14B46F00A5EDA0 /* Assets.xcassets */,
 				F37F08231F14B46F00A5EDA0 /* LaunchScreen.storyboard */,
 				F37F08261F14B46F00A5EDA0 /* Info.plist */,
-				F37F08331F14B61100A5EDA0 /* MSScrollViewSwift-Bridging-Header.h */,
 			);
 			path = MSScrollViewSwift;
 			sourceTree = "<group>";
 		};
-		F37F08371F14C3E800A5EDA0 /* MSScrollView */ = {
+		F37F082C1F14B4A700A5EDA0 /* MSScrollView */ = {
 			isa = PBXGroup;
 			children = (
-				F37F08381F14C3E800A5EDA0 /* CustomerPageControl.swift */,
-				F37F08391F14C3E800A5EDA0 /* MSScrollView.swift */,
-				F37F083A1F14C3E800A5EDA0 /* MSSource.bundle */,
+				F37F08401F14D1D500A5EDA0 /* String+MD5.swift */,
+				F37F082D1F14B4A700A5EDA0 /* CustomerPageControl.swift */,
+				F37F082E1F14B4A700A5EDA0 /* MSScrollView.swift */,
+				F37F082F1F14B4A700A5EDA0 /* MSSource.bundle */,
 			);
-			name = MSScrollView;
-			path = ../MSScrollView;
+			path = MSScrollView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -144,7 +144,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F37F083D1F14C3E800A5EDA0 /* MSSource.bundle in Resources */,
+				F37F08321F14B4A700A5EDA0 /* MSSource.bundle in Resources */,
 				F37F08251F14B46F00A5EDA0 /* LaunchScreen.storyboard in Resources */,
 				F37F08221F14B46F00A5EDA0 /* Assets.xcassets in Resources */,
 				F37F08201F14B46F00A5EDA0 /* Main.storyboard in Resources */,
@@ -160,8 +160,9 @@
 			files = (
 				F37F081D1F14B46F00A5EDA0 /* ViewController.swift in Sources */,
 				F37F081B1F14B46F00A5EDA0 /* AppDelegate.swift in Sources */,
-				F37F083B1F14C3E800A5EDA0 /* CustomerPageControl.swift in Sources */,
-				F37F083C1F14C3E800A5EDA0 /* MSScrollView.swift in Sources */,
+				F37F08411F14D1D500A5EDA0 /* String+MD5.swift in Sources */,
+				F37F08301F14B4A700A5EDA0 /* CustomerPageControl.swift in Sources */,
+				F37F08311F14B4A700A5EDA0 /* MSScrollView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -291,7 +292,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.laiyifen.MSScrollViewSwift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "MSScrollViewSwift/MSScrollViewSwift-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
@@ -308,7 +309,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.laiyifen.MSScrollViewSwift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "MSScrollViewSwift/MSScrollViewSwift-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
@@ -332,7 +333,6 @@
 				F37F082B1F14B46F00A5EDA0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
