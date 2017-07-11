@@ -172,7 +172,7 @@ class MSScrollView: UIView,UIScrollViewDelegate,UIGestureRecognizerDelegate {
         if !fileManage .fileExists(atPath: path) {
           try? fileManage.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
         }
-        let cachePatch = (path as NSString).appendingPathComponent(url.absoluteString.md5)
+        let cachePatch = (path as NSString).appendingPathComponent(url.absoluteString.ms.md5)
         if fileManage .fileExists(atPath: cachePatch) {
             if let image = UIImage.init(contentsOfFile: cachePatch){
                 success(image,url)
@@ -185,7 +185,7 @@ class MSScrollView: UIView,UIScrollViewDelegate,UIGestureRecognizerDelegate {
             let session = URLSession.init(configuration: sessionConfiguration, delegate: nil, delegateQueue: queue)
             let downloadTask = session.downloadTask(with: url, completionHandler: { (location:URL?, respone:URLResponse?, error:Error?) in
                 if error == nil{
-                    let toPath = (path as NSString).appendingPathComponent(url.absoluteString.md5)
+                    let toPath = (path as NSString).appendingPathComponent(url.absoluteString.ms.md5)
                     try? fileManage.moveItem(atPath: (location?.path)!, toPath: toPath)
                     if let image = UIImage.init(contentsOfFile: toPath){
                         success(image,(respone?.url)!)
@@ -371,21 +371,5 @@ class MSScrollView: UIView,UIScrollViewDelegate,UIGestureRecognizerDelegate {
         
     }
 }
-//MD5
-extension String{
-    var md5: String{
-        let str = self.cString(using: String.Encoding.utf8)
-        let strLen =  CC_LONG(self.lengthOfBytes(using: String.Encoding.utf8))
-        let digestLen = Int(CC_MD5_DIGEST_LENGTH)
-        let result = UnsafeMutablePointer<CUnsignedChar>.allocate(capacity: digestLen)
-        CC_MD5(str!, strLen, result)
-        
-        let hash = NSMutableString()
-        for i in 0..<digestLen {
-            hash.appendFormat("%02x",result[i])
-        }
-        result.deinitialize();
-        return String(format: hash as String)
-    }
-}
+
 
