@@ -1,0 +1,2 @@
+# MSScrollViewSwift
+swiftBanner
