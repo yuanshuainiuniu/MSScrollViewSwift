@@ -287,7 +287,6 @@ public class MSScrollView: UIView,UIScrollViewDelegate,UIGestureRecognizerDelega
         if pageControl == nil {
             pageControl = CustomerPageControl()
             pageControl?.pageIndicatorTintColor = UIColor.init(white: 0.7, alpha: 0.5)
-            pageControl?.currentPageIndicatorTintColor = UIColor.purple
             pageControl?.isUserInteractionEnabled = false
         }
         pageControl?.numberOfPages = (images.count)

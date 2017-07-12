@@ -32,6 +32,7 @@ class ViewController: UIViewController,MSScrollViewDelegate {
         self.view.addSubview(msScrollView)
         msScrollView.urlImages = urlArr
         msScrollView.delegate = self
+        msScrollView.pageControl?.currentPageIndicatorTintColor = UIColor.orange
         
 
     }
