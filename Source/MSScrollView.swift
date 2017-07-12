@@ -17,10 +17,10 @@ enum MSPageControlDirection :Int{
     case MSPageControl_Left
     case MSPageControl_Right
 }
- protocol MSScrollViewDelegate:NSObjectProtocol{
+public protocol MSScrollViewDelegate:NSObjectProtocol{
     func MSScrollViewSelected(_ msScrollView:MSScrollView,didSelectPage:NSInteger)
 }
- class MSScrollView: UIView,UIScrollViewDelegate,UIGestureRecognizerDelegate {
+public class MSScrollView: UIView,UIScrollViewDelegate,UIGestureRecognizerDelegate {
     var isAutoPlay :Bool = false{
         didSet{
             commoninit()
@@ -95,7 +95,7 @@ enum MSPageControlDirection :Int{
         threeImageView = self.ImageView()
         self.commoninit()
     }
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     func addScrollView() -> Void {
@@ -220,7 +220,7 @@ enum MSPageControlDirection :Int{
     func singleTapGestureRecognizer() -> Void {
         delegate?.MSScrollViewSelected(self, didSelectPage: currentPage)
     }
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         if gestureRecognizer.isKind(of: UIPanGestureRecognizer.self) {
             return false
         }
@@ -272,7 +272,7 @@ enum MSPageControlDirection :Int{
             scrollView.setContentOffset(CGPoint.init(x: 0, y: self.frame.size.height*2), animated: true)
         }
     }
-    override func layoutSubviews() {
+    override public func layoutSubviews() {
         super.layoutSubviews()
         commoninit()
     }
@@ -302,13 +302,13 @@ enum MSPageControlDirection :Int{
         addSubview(pageControl!)
     }
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         playImages()
     }
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+    public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         self.removeTimer()
     }
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+    public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if self.isAutoPlay {
             self.addTimer()
         }
