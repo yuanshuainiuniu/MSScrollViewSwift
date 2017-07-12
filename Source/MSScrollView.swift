@@ -102,7 +102,6 @@ public class MSScrollView: UIView,UIScrollViewDelegate,UIGestureRecognizerDelega
     func addScrollView() -> Void {
         if scrollView == nil {
             scrollView = UIScrollView()
-            scrollView.backgroundColor = UIColor.red
             scrollView.delegate = self
             scrollView.isPagingEnabled = true
             scrollView.showsVerticalScrollIndicator = false
