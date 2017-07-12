@@ -12,10 +12,10 @@
 		F37F08201F14B46F00A5EDA0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F37F081E1F14B46F00A5EDA0 /* Main.storyboard */; };
 		F37F08221F14B46F00A5EDA0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F37F08211F14B46F00A5EDA0 /* Assets.xcassets */; };
 		F37F08251F14B46F00A5EDA0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F37F08231F14B46F00A5EDA0 /* LaunchScreen.storyboard */; };
-		F37F08301F14B4A700A5EDA0 /* CustomerPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37F082D1F14B4A700A5EDA0 /* CustomerPageControl.swift */; };
-		F37F08311F14B4A700A5EDA0 /* MSScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37F082E1F14B4A700A5EDA0 /* MSScrollView.swift */; };
-		F37F08321F14B4A700A5EDA0 /* MSSource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F37F082F1F14B4A700A5EDA0 /* MSSource.bundle */; };
-		F37F08411F14D1D500A5EDA0 /* String+MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37F08401F14D1D500A5EDA0 /* String+MD5.swift */; };
+		F39253031F15EB8900FDBF92 /* CustomerPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39252FF1F15EB8900FDBF92 /* CustomerPageControl.swift */; };
+		F39253041F15EB8900FDBF92 /* MSScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39253001F15EB8900FDBF92 /* MSScrollView.swift */; };
+		F39253051F15EB8900FDBF92 /* MSSource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F39253011F15EB8900FDBF92 /* MSSource.bundle */; };
+		F39253061F15EB8900FDBF92 /* String+MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39253021F15EB8900FDBF92 /* String+MD5.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,10 +26,10 @@
 		F37F08211F14B46F00A5EDA0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F37F08241F14B46F00A5EDA0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F37F08261F14B46F00A5EDA0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F37F082D1F14B4A700A5EDA0 /* CustomerPageControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomerPageControl.swift; sourceTree = "<group>"; };
-		F37F082E1F14B4A700A5EDA0 /* MSScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MSScrollView.swift; sourceTree = "<group>"; };
-		F37F082F1F14B4A700A5EDA0 /* MSSource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MSSource.bundle; sourceTree = "<group>"; };
-		F37F08401F14D1D500A5EDA0 /* String+MD5.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+MD5.swift"; sourceTree = "<group>"; };
+		F39252FF1F15EB8900FDBF92 /* CustomerPageControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomerPageControl.swift; sourceTree = "<group>"; };
+		F39253001F15EB8900FDBF92 /* MSScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MSScrollView.swift; sourceTree = "<group>"; };
+		F39253011F15EB8900FDBF92 /* MSSource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MSSource.bundle; sourceTree = "<group>"; };
+		F39253021F15EB8900FDBF92 /* String+MD5.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+MD5.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,7 +46,7 @@
 		F37F080E1F14B46F00A5EDA0 = {
 			isa = PBXGroup;
 			children = (
-				F37F082C1F14B4A700A5EDA0 /* MSScrollView */,
+				F39252FE1F15EB8900FDBF92 /* Sources */,
 				F37F08191F14B46F00A5EDA0 /* MSScrollViewSwift */,
 				F37F08181F14B46F00A5EDA0 /* Products */,
 			);
@@ -73,15 +73,16 @@
 			path = MSScrollViewSwift;
 			sourceTree = "<group>";
 		};
-		F37F082C1F14B4A700A5EDA0 /* MSScrollView */ = {
+		F39252FE1F15EB8900FDBF92 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				F37F08401F14D1D500A5EDA0 /* String+MD5.swift */,
-				F37F082D1F14B4A700A5EDA0 /* CustomerPageControl.swift */,
-				F37F082E1F14B4A700A5EDA0 /* MSScrollView.swift */,
-				F37F082F1F14B4A700A5EDA0 /* MSSource.bundle */,
+				F39252FF1F15EB8900FDBF92 /* CustomerPageControl.swift */,
+				F39253001F15EB8900FDBF92 /* MSScrollView.swift */,
+				F39253011F15EB8900FDBF92 /* MSSource.bundle */,
+				F39253021F15EB8900FDBF92 /* String+MD5.swift */,
 			);
-			path = MSScrollView;
+			name = Sources;
+			path = ../Sources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -144,7 +145,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F37F08321F14B4A700A5EDA0 /* MSSource.bundle in Resources */,
+				F39253051F15EB8900FDBF92 /* MSSource.bundle in Resources */,
 				F37F08251F14B46F00A5EDA0 /* LaunchScreen.storyboard in Resources */,
 				F37F08221F14B46F00A5EDA0 /* Assets.xcassets in Resources */,
 				F37F08201F14B46F00A5EDA0 /* Main.storyboard in Resources */,
@@ -160,9 +161,9 @@
 			files = (
 				F37F081D1F14B46F00A5EDA0 /* ViewController.swift in Sources */,
 				F37F081B1F14B46F00A5EDA0 /* AppDelegate.swift in Sources */,
-				F37F08411F14D1D500A5EDA0 /* String+MD5.swift in Sources */,
-				F37F08301F14B4A700A5EDA0 /* CustomerPageControl.swift in Sources */,
-				F37F08311F14B4A700A5EDA0 /* MSScrollView.swift in Sources */,
+				F39253061F15EB8900FDBF92 /* String+MD5.swift in Sources */,
+				F39253031F15EB8900FDBF92 /* CustomerPageControl.swift in Sources */,
+				F39253041F15EB8900FDBF92 /* MSScrollView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -333,6 +334,7 @@
 				F37F082B1F14B46F00A5EDA0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
