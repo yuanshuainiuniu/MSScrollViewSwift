@@ -8,11 +8,11 @@
 
 import UIKit
 
-class CustomerPageControl: UIView {
-    var currentPageView :UIView?
-    var pageBackColor = UIColor.init(white: 1, alpha: 0.3)
+public class CustomerPageControl: UIView {
+  public  var currentPageView :UIView?
+  public  var pageBackColor = UIColor.init(white: 1, alpha: 0.3)
     
-    var numberOfPages :NSInteger = 0{
+  public  var numberOfPages :NSInteger = 0{
         didSet{
             self.frame.size = CGSize.init(width: CGFloat((numberOfPages + 1))*margin + self.frame.size.height * CGFloat(numberOfPages), height: self.frame.size.height)
             
@@ -35,16 +35,16 @@ class CustomerPageControl: UIView {
     }
     var margin:CGFloat = 5.0
     
-    var currentPage : NSInteger = 0{
+   public var currentPage : NSInteger = 0{
         didSet{
             self.setCurrentPage(currentPage, withAnimation: false)
         }
     }
-    var pageIndicatorTintColor : UIColor = UIColor.gray
-    var currentPageIndicatorTintColor : UIColor = UIColor.white
-    var pageWidth : CGFloat?
+   public var pageIndicatorTintColor : UIColor = UIColor.gray
+   public  var currentPageIndicatorTintColor : UIColor = UIColor.white
+   public var pageWidth : CGFloat?
     
-    func setCurrentPage(_ currentPage:NSInteger,withAnimation animation:Bool) -> Void {
+   public func setCurrentPage(_ currentPage:NSInteger,withAnimation animation:Bool) -> Void {
         if animation {
             let transition = CATransition()
             transition.type = kCATransitionPush;
@@ -64,10 +64,10 @@ class CustomerPageControl: UIView {
             self.currentPageView = page;
         }
     }
-    func updateCurrentPageDisplay() -> Void {
+  public  func updateCurrentPageDisplay() -> Void {
         
     }
-    override func layoutSubviews() {
+  public  override func layoutSubviews() {
         super.layoutSubviews()
         let count = self.subviews.count
         let height = self.frame.size.height

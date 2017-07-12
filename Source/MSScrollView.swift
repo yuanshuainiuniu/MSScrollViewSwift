@@ -8,11 +8,11 @@
 
 import UIKit
 
-enum MSCycleDirection :Int{
+public enum MSCycleDirection :Int{
     case MSCycleDirectionHorizontal
     case MSCycleDirectionVertical
 }
-enum MSPageControlDirection :Int{
+public enum MSPageControlDirection :Int{
     case MSPageControl_Center
     case MSPageControl_Left
     case MSPageControl_Right
@@ -21,41 +21,41 @@ public protocol MSScrollViewDelegate:NSObjectProtocol{
     func MSScrollViewSelected(_ msScrollView:MSScrollView,didSelectPage:NSInteger)
 }
 public class MSScrollView: UIView,UIScrollViewDelegate,UIGestureRecognizerDelegate {
-    var isAutoPlay :Bool = false{
+   public var isAutoPlay :Bool = false{
         didSet{
             commoninit()
         }
     }
-    weak var delegate:MSScrollViewDelegate?
+   public weak var delegate:MSScrollViewDelegate?
     
-    var pageControl : CustomerPageControl?
-    var timeInterval:TimeInterval = 0.0{
+   public var pageControl : CustomerPageControl?
+   public var timeInterval:TimeInterval = 0.0{
         didSet{
             commoninit()
         }
     }
-    var pageControlOffset :UIOffset = UIOffset.zero{
+   public var pageControlOffset :UIOffset = UIOffset.zero{
         didSet{
             addPageControl()
         }
     }
+    
+    
+   public var direction :MSCycleDirection = MSCycleDirection.MSCycleDirectionHorizontal{
+        didSet{
+            commoninit()
+        }
+    }
+   public var images = [UIImage]()
+   public var pageControlDir :MSPageControlDirection = MSPageControlDirection.MSPageControl_Center{
+        didSet{
+            addPageControl()
+        }
+    }
+   public var placeholderImage :String?
+    
     var scrollView : UIScrollView!
     var currentPage:Int = 0
-    
-    var direction :MSCycleDirection = MSCycleDirection.MSCycleDirectionHorizontal{
-        didSet{
-            commoninit()
-        }
-    }
-    var images = [UIImage]()
-    var pageControlDir :MSPageControlDirection = MSPageControlDirection.MSPageControl_Center{
-        didSet{
-            addPageControl()
-        }
-    }
-    var placeholderImage :String?
-    
-    
     
     private var AutoTimer :Timer?
     
