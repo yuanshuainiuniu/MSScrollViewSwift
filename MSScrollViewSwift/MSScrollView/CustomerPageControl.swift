@@ -13,22 +13,22 @@ class CustomerPageControl: UIView {
     var pageBackColor = UIColor.init(white: 1, alpha: 0.3)
     
     var numberOfPages :NSInteger = 0{
-        didSet(value){
-            self.frame.size = CGSize.init(width: CGFloat((value + 1))*margin + self.frame.size.height * CGFloat(value), height: self.frame.size.height)
+        didSet{
+            self.frame.size = CGSize.init(width: CGFloat((numberOfPages + 1))*margin + self.frame.size.height * CGFloat(numberOfPages), height: self.frame.size.height)
             
             while self.subviews.count > 0{
                 self.subviews.last?.removeFromSuperview()
             }
-            for index in 0..<value{
+            for index in 0..<numberOfPages{
                 let page = UIView()
                 page.layer.masksToBounds = true
-                page.layer.borderColor = UIColor.lightGray.cgColor
+                page.layer.borderColor = pageIndicatorTintColor.cgColor
                 page.layer.borderWidth = 0.8
                 page.backgroundColor = pageBackColor
                 self.addSubview(page)
                 if index == 0 {
                     currentPageView = page
-                    currentPageView?.backgroundColor = UIColor.orange
+                    currentPageView?.backgroundColor = currentPageIndicatorTintColor
                 }
             }
         }
@@ -36,8 +36,8 @@ class CustomerPageControl: UIView {
     var margin:CGFloat = 5.0
     
     var currentPage : NSInteger = 0{
-        didSet(value){
-            self.setCurrentPage(value, withAnimation: false)
+        didSet{
+            self.setCurrentPage(currentPage, withAnimation: false)
         }
     }
     var pageIndicatorTintColor : UIColor = UIColor.gray
@@ -55,11 +55,11 @@ class CustomerPageControl: UIView {
         }
         if self.currentPage < self.subviews.count {
             self.currentPageView?.backgroundColor = pageBackColor
-            self.currentPageView?.layer.borderColor = UIColor.lightGray.cgColor;
+            self.currentPageView?.layer.borderColor = pageIndicatorTintColor.cgColor
             self.currentPageView?.layer.borderWidth = 0.8
             
             let page = self.subviews[currentPage]
-            page.backgroundColor = UIColor.orange
+            page.backgroundColor = currentPageIndicatorTintColor
             page.layer.borderWidth = 0.0
             self.currentPageView = page;
         }

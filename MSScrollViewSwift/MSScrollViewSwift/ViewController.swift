@@ -8,7 +8,13 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController,MSScrollViewDelegate {
+    
+    func MSScrollViewSelected(_ msScrollView: MSScrollView, didSelectPage: NSInteger) {
+        print(didSelectPage)
+
+    }
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +31,9 @@ class ViewController: UIViewController {
         msScrollView.pageControlDir = MSPageControlDirection.MSPageControl_Right
         self.view.addSubview(msScrollView)
         msScrollView.urlImages = urlArr
+        msScrollView.delegate = self
+        
+
     }
 
     override func didReceiveMemoryWarning() {

@@ -17,12 +17,17 @@ enum MSPageControlDirection :Int{
     case MSPageControl_Left
     case MSPageControl_Right
 }
-class MSScrollView: UIView,UIScrollViewDelegate,UIGestureRecognizerDelegate {
+ protocol MSScrollViewDelegate:NSObjectProtocol{
+    func MSScrollViewSelected(_ msScrollView:MSScrollView,didSelectPage:NSInteger)
+}
+ class MSScrollView: UIView,UIScrollViewDelegate,UIGestureRecognizerDelegate {
     var isAutoPlay :Bool = false{
         didSet{
             commoninit()
         }
     }
+    weak var delegate:MSScrollViewDelegate?
+    
     var pageControl : CustomerPageControl?
     var timeInterval:TimeInterval = 0.0{
         didSet{
@@ -61,14 +66,14 @@ class MSScrollView: UIView,UIScrollViewDelegate,UIGestureRecognizerDelegate {
     var downloadTaskArray = [URLSessionDownloadTask]()
     
     var imageNames : [String] = []{
-        didSet(value){
-            initImages(value, fromUrl: false)
+        didSet{
+            initImages(imageNames, fromUrl: false)
         }
     }
     
     var urlImages : [String] = []{
-        willSet(value){
-            initImages(value, fromUrl: true)
+        didSet{
+            initImages(urlImages, fromUrl: true)
         }
     }
     
@@ -213,7 +218,7 @@ class MSScrollView: UIView,UIScrollViewDelegate,UIGestureRecognizerDelegate {
         self.downloadTaskArray.removeAll()
     }
     func singleTapGestureRecognizer() -> Void {
-        
+        delegate?.MSScrollViewSelected(self, didSelectPage: currentPage)
     }
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         if gestureRecognizer.isKind(of: UIPanGestureRecognizer.self) {
