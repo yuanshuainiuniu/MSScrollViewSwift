@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name = 'MSScrollViewSwift'
-    s.version = '0.2.1'
+    s.version = '0.2.2'
     s.summary = 'The easiest way to use Banner with Swift3.0 program language.'
     s.homepage = 'https://github.com/yuanshuainiuniu/MSScrollViewSwift'
     s.license = 'MIT'

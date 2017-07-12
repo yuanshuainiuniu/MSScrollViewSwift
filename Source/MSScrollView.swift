@@ -54,6 +54,17 @@ public class MSScrollView: UIView,UIScrollViewDelegate,UIGestureRecognizerDelega
     }
    public var placeholderImage :String?
     
+    public var imageNames : [String] = []{
+        didSet{
+            initImages(imageNames, fromUrl: false)
+        }
+    }
+    
+    public var urlImages : [String] = []{
+        didSet{
+            initImages(urlImages, fromUrl: true)
+        }
+    }
     var scrollView : UIScrollView!
     var currentPage:Int = 0
     
@@ -65,17 +76,7 @@ public class MSScrollView: UIView,UIScrollViewDelegate,UIGestureRecognizerDelega
     var tapGestureRecognizer :UITapGestureRecognizer?
     var downloadTaskArray = [URLSessionDownloadTask]()
     
-    var imageNames : [String] = []{
-        didSet{
-            initImages(imageNames, fromUrl: false)
-        }
-    }
-    
-    var urlImages : [String] = []{
-        didSet{
-            initImages(urlImages, fromUrl: true)
-        }
-    }
+   
     
     func ImageView() -> UIImageView {
         let imagv = UIImageView()
