@@ -80,7 +80,7 @@ public class MSScrollView: UIView,UIScrollViewDelegate,UIGestureRecognizerDelega
     
     func ImageView() -> UIImageView {
         let imagv = UIImageView()
-        imagv.contentMode = UIViewContentMode.scaleAspectFill;
+        imagv.contentMode = UIView.ContentMode.scaleAspectFill;
       
         imagv.isUserInteractionEnabled = true;
         imagv.layer.masksToBounds = true;
@@ -117,12 +117,12 @@ public class MSScrollView: UIView,UIScrollViewDelegate,UIGestureRecognizerDelega
         scrollView.addSubview(threeImageView)
         
         if direction == MSCycleDirection.MSCycleDirectionHorizontal {
-            firstImageView.frame = self.frame
+            firstImageView.frame = CGRect.init(x: 0, y: 0, width: width, height: height)
             secondImageView.frame = CGRect.init(x: width, y: 0, width: width, height: height)
             threeImageView.frame = CGRect.init(x: width*2, y: 0, width: width, height: height)
             scrollView.contentSize = CGSize.init(width: self.frame.size.width * 3, height: self.frame.size.height)
         }else if direction == MSCycleDirection.MSCycleDirectionVertical{
-            firstImageView.frame = self.frame
+            firstImageView.frame = CGRect.init(x: 0, y: 0, width: width, height: height)
             secondImageView.frame = CGRect.init(x: 0, y: height, width: width, height: height)
             threeImageView.frame = CGRect.init(x: 0, y: height*2, width: width, height: height)
             scrollView.contentSize = CGSize.init(width: self.frame.size.width, height: self.frame.size.height * 3)
@@ -154,7 +154,7 @@ public class MSScrollView: UIView,UIScrollViewDelegate,UIGestureRecognizerDelega
                 for (idx,value) in _images.enumerated(){
                     self.downLoadImageWithURL(URL.init(string: value)!, success: {[unowned self] (image:UIImage?, url:URL?) in
                         if image != nil{
-                            let arange = Range(idx..<(idx+1))
+                            let arange = idx..<idx+1
                             self.images.replaceSubrange(arange, with: [image!])
                             DispatchQueue.main.async {
                                 self.commoninit()
@@ -177,7 +177,7 @@ public class MSScrollView: UIView,UIScrollViewDelegate,UIGestureRecognizerDelega
         if !fileManage .fileExists(atPath: path) {
           try? fileManage.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
         }
-        let cachePatch = (path as NSString).appendingPathComponent(url.absoluteString.ms.md5)
+        let cachePatch = (path as NSString).appendingPathComponent(url.absoluteString.ms_md5)
         if fileManage .fileExists(atPath: cachePatch) {
             if let image = UIImage.init(contentsOfFile: cachePatch){
                 success(image,url)
@@ -190,17 +190,11 @@ public class MSScrollView: UIView,UIScrollViewDelegate,UIGestureRecognizerDelega
             let session = URLSession.init(configuration: sessionConfiguration, delegate: nil, delegateQueue: queue)
             let downloadTask = session.downloadTask(with: url, completionHandler: { (location:URL?, respone:URLResponse?, error:Error?) in
                 if error == nil{
-                    let toPath = (path as NSString).appendingPathComponent(url.absoluteString.ms.md5)
+                    let toPath = (path as NSString).appendingPathComponent(url.absoluteString.ms_md5)
                     try? fileManage.moveItem(atPath: (location?.path)!, toPath: toPath)
                     if let image = UIImage.init(contentsOfFile: toPath){
                         success(image,(respone?.url)!)
                     }
-//                    for (idx,value) in self.downloadTaskArray.enumerated(){
-//                        if value == downloadTask{
-//                            
-//                        }
-//                    }
-                    
                 }
             })
             downloadTask.resume()
@@ -217,7 +211,7 @@ public class MSScrollView: UIView,UIScrollViewDelegate,UIGestureRecognizerDelega
         }
         self.downloadTaskArray.removeAll()
     }
-    func singleTapGestureRecognizer() -> Void {
+    @objc func singleTapGestureRecognizer() -> Void {
         delegate?.MSScrollViewSelected(self, didSelectPage: currentPage)
     }
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
@@ -229,7 +223,7 @@ public class MSScrollView: UIView,UIScrollViewDelegate,UIGestureRecognizerDelega
     func addTimer() -> Void {
         self.removeTimer()
         AutoTimer = Timer.scheduledTimer(timeInterval: timeInterval > 0 ? timeInterval : 2.5, target: self, selector: #selector(MSScrollView.autoShowNextImage), userInfo: nil, repeats: true)
-        RunLoop.main.add(AutoTimer!, forMode: RunLoopMode.commonModes)
+        RunLoop.main.add(AutoTimer!, forMode: .common)
     }
     func removeTimer() -> Void {
         if AutoTimer != nil {
@@ -265,7 +259,7 @@ public class MSScrollView: UIView,UIScrollViewDelegate,UIGestureRecognizerDelega
             scrollView.setContentOffset(CGPoint.init(x: 0, y: self.frame.size.height), animated: false)
         }
     }
-    func autoShowNextImage() -> Void {
+    @objc func autoShowNextImage() -> Void {
         if self.direction == MSCycleDirection.MSCycleDirectionHorizontal {
             scrollView.setContentOffset(CGPoint.init(x: self.frame.size.width*2, y: 0), animated: true)
         }else{

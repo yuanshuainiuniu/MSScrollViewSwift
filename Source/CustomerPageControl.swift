@@ -47,10 +47,10 @@ public class CustomerPageControl: UIView {
    public func setCurrentPage(_ currentPage:NSInteger,withAnimation animation:Bool) -> Void {
         if animation {
             let transition = CATransition()
-            transition.type = kCATransitionPush;
+            transition.type = CATransitionType.push;
             transition.duration = 0.2;
             transition.isRemovedOnCompletion = true;
-            transition.subtype = currentPage<self.currentPage ? kCATransitionFromRight : kCATransitionFromLeft;
+            transition.subtype = currentPage<self.currentPage ? CATransitionSubtype.fromRight : CATransitionSubtype.fromLeft;
             currentPageView?.layer.add(transition, forKey: "transition")
         }
         if self.currentPage < self.subviews.count {

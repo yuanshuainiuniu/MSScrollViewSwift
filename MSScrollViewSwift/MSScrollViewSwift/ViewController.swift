@@ -24,11 +24,11 @@ class ViewController: UIViewController,MSScrollViewDelegate {
                       "xxx",
                       "http://e.hiphotos.baidu.com/image/pic/item/7a899e510fb30f241e175064ca95d143ac4b0e3c3.jpg"]
         let msScrollView = MSScrollView()
-        msScrollView.frame = CGRect.init(x: 0, y: 30, width: self.view.frame.size.width, height: 200)
-        msScrollView.isAutoPlay = true
-        msScrollView.timeInterval = 4
+        msScrollView.frame = CGRect.init(x: 0, y: 100, width: self.view.frame.size.width, height: 200)
+        msScrollView.isAutoPlay = false
+        msScrollView.timeInterval = 8
         msScrollView.pageControlOffset = UIOffset.init(horizontal: -5, vertical: 5)
-        msScrollView.pageControlDir = MSPageControlDirection.MSPageControl_Right
+        msScrollView.pageControlDir = MSPageControlDirection.MSPageControl_Center
         self.view.addSubview(msScrollView)
         msScrollView.urlImages = urlArr
         msScrollView.delegate = self
