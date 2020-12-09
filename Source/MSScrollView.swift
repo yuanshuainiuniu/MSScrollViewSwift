@@ -52,7 +52,7 @@ public class MSScrollView: UIView,UIScrollViewDelegate,UIGestureRecognizerDelega
             addPageControl()
         }
     }
-   public var placeholderImage :String?
+   public var placeholderImage :UIImage?
     
     public var imageNames : [String] = []{
         didSet{
@@ -148,8 +148,7 @@ public class MSScrollView: UIView,UIScrollViewDelegate,UIGestureRecognizerDelega
             self.cancleAllTask()
             if fromUrl{
                 for _ in 0..<_images.count{
-                    let placeHold = UIImage.init(named: self.placeholderImage ?? "MSSource.bundle/def.jpg")
-                    self.images.append(placeHold ?? UIImage())
+                    self.images.append(self.placeholderImage ?? UIImage())
                 }
                 for (idx,value) in _images.enumerated(){
                     self.downLoadImageWithURL(URL.init(string: value)!, success: {[unowned self] (image:UIImage?, url:URL?) in

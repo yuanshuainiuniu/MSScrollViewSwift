@@ -15,7 +15,6 @@
 		F37F08251F14B46F00A5EDA0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F37F08231F14B46F00A5EDA0 /* LaunchScreen.storyboard */; };
 		F392530C1F15ED5A00FDBF92 /* CustomerPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39253081F15ED5A00FDBF92 /* CustomerPageControl.swift */; };
 		F392530D1F15ED5A00FDBF92 /* MSScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39253091F15ED5A00FDBF92 /* MSScrollView.swift */; };
-		F392530E1F15ED5A00FDBF92 /* MSSource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F392530A1F15ED5A00FDBF92 /* MSSource.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,7 +28,6 @@
 		F37F08261F14B46F00A5EDA0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F39253081F15ED5A00FDBF92 /* CustomerPageControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomerPageControl.swift; sourceTree = "<group>"; };
 		F39253091F15ED5A00FDBF92 /* MSScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MSScrollView.swift; sourceTree = "<group>"; };
-		F392530A1F15ED5A00FDBF92 /* MSSource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MSSource.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,7 +76,6 @@
 			children = (
 				F39253081F15ED5A00FDBF92 /* CustomerPageControl.swift */,
 				F39253091F15ED5A00FDBF92 /* MSScrollView.swift */,
-				F392530A1F15ED5A00FDBF92 /* MSSource.bundle */,
 				F34A3DBE2580D76700D484A1 /* MSString+MD5.swift */,
 			);
 			name = Source;
@@ -145,7 +142,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F392530E1F15ED5A00FDBF92 /* MSSource.bundle in Resources */,
 				F37F08251F14B46F00A5EDA0 /* LaunchScreen.storyboard in Resources */,
 				F37F08221F14B46F00A5EDA0 /* Assets.xcassets in Resources */,
 				F37F08201F14B46F00A5EDA0 /* Main.storyboard in Resources */,

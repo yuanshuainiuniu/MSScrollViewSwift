@@ -24,6 +24,7 @@ class ViewController: UIViewController,MSScrollViewDelegate {
                       "xxx",
                       "http://e.hiphotos.baidu.com/image/pic/item/7a899e510fb30f241e175064ca95d143ac4b0e3c3.jpg"]
         let msScrollView = MSScrollView()
+        msScrollView.backgroundColor = UIColor.yellow
         msScrollView.frame = CGRect.init(x: 0, y: 100, width: self.view.frame.size.width, height: 200)
         msScrollView.isAutoPlay = false
         msScrollView.timeInterval = 8
