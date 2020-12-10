@@ -22,11 +22,11 @@ public protocol MSScrollViewDelegate:NSObjectProtocol{
 }
 public class MSImageModel:NSObject{
     //占位图
-    var image:UIImage?
+    public var image:UIImage?
     //链接图
-    var url:String?
+    public var url:String?
     //过渡动画
-    var animated = true
+    public var animated = true
     //是否是本地图片
     fileprivate var isLocal = true
 }
