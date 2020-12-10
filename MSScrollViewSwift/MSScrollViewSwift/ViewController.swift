@@ -26,8 +26,8 @@ class ViewController: UIViewController,MSScrollViewDelegate {
         let msScrollView = MSScrollView()
         msScrollView.backgroundColor = UIColor.yellow
         msScrollView.frame = CGRect.init(x: 0, y: 100, width: self.view.frame.size.width, height: 200)
-        msScrollView.isAutoPlay = false
-        msScrollView.timeInterval = 8
+        msScrollView.isAutoPlay = true
+        msScrollView.timeInterval = 5
         msScrollView.pageControlOffset = UIOffset.init(horizontal: -5, vertical: 5)
         msScrollView.pageControlDir = MSPageControlDirection.MSPageControl_Center
         self.view.addSubview(msScrollView)

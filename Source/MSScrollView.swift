@@ -321,7 +321,7 @@ public class MSScrollView: UIView,UIScrollViewDelegate,UIGestureRecognizerDelega
             }
             
             //往后翻
-            if x >= self.frame.size.width * 2{
+            if x >= floor(self.frame.size.width * 2){
                 if currentPage == (images.count) - 1 {
                     currentPage = 0;
                 }else{
@@ -332,7 +332,7 @@ public class MSScrollView: UIView,UIScrollViewDelegate,UIGestureRecognizerDelega
         }else{
             let y = scrollView.contentOffset.y
             //up
-            if y > self.frame.size.height {
+            if y > floor(self.frame.size.height) {
                 
                 if currentPage == (images.count) - 1 {
                     currentPage = 0
@@ -342,7 +342,7 @@ public class MSScrollView: UIView,UIScrollViewDelegate,UIGestureRecognizerDelega
                 self.reloadData()
             }
             //down
-            if y < self.frame.size.height {
+            if y < floor(self.frame.size.height) {
                 if currentPage - 1 < 0 {
                     currentPage = (images.count) - 1
                 }else{
