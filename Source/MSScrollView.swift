@@ -27,6 +27,8 @@ public class MSImageModel:NSObject{
     public var url:String?
     //过渡动画
     public var animated = true
+    //图片显示模式
+    public var contentMode:UIView.ContentMode = .scaleAspectFill
     //是否是本地图片
     fileprivate var isLocal = true
 }
@@ -377,8 +379,11 @@ fileprivate extension UIImageView{
             transition.timingFunction = CAMediaTimingFunction.init(name: CAMediaTimingFunctionName.easeInEaseOut)
             self.layer.add(transition, forKey: "animated")
         }
+        if let mode = model,mode.contentMode.rawValue != self.contentMode.rawValue {
+            self.contentMode = mode.contentMode
+        }
         self.image = model?.image
-
+        
     }
 }
 
