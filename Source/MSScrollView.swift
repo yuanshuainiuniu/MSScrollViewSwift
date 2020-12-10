@@ -20,6 +20,16 @@ public enum MSPageControlDirection :Int{
 public protocol MSScrollViewDelegate:NSObjectProtocol{
     func MSScrollViewSelected(_ msScrollView:MSScrollView,didSelectPage:NSInteger)
 }
+public class MSImageModel:NSObject{
+    //占位图
+    var image:UIImage?
+    //链接图
+    var url:String?
+    //过渡动画
+    var animated = true
+    //是否是本地图片
+    fileprivate var isLocal = true
+}
 public class MSScrollView: UIView,UIScrollViewDelegate,UIGestureRecognizerDelegate {
    public var isAutoPlay :Bool = false{
         didSet{
@@ -46,7 +56,7 @@ public class MSScrollView: UIView,UIScrollViewDelegate,UIGestureRecognizerDelega
             commoninit()
         }
     }
-   public var images = [UIImage]()
+   private var images = [MSImageModel]()
    public var pageControlDir :MSPageControlDirection = MSPageControlDirection.MSPageControl_Center{
         didSet{
             addPageControl()
@@ -54,17 +64,12 @@ public class MSScrollView: UIView,UIScrollViewDelegate,UIGestureRecognizerDelega
     }
    public var placeholderImage :UIImage?
     
-    public var imageNames : [String] = []{
+    public var imageModels : [MSImageModel] = []{
         didSet{
-            initImages(imageNames, fromUrl: false)
+            initImages(imageModels)
         }
     }
     
-    public var urlImages : [String] = []{
-        didSet{
-            initImages(urlImages, fromUrl: true)
-        }
-    }
     var scrollView : UIScrollView!
     var currentPage:Int = 0
     
@@ -142,35 +147,29 @@ public class MSScrollView: UIView,UIScrollViewDelegate,UIGestureRecognizerDelega
         
         
     }
-    func initImages(_ _images:[String],fromUrl:Bool) -> Void {
+    func initImages(_ images:[MSImageModel]) -> Void {
         DispatchQueue.main.async {
-            self.images = []
+            self.images = images
             self.cancleAllTask()
-            if fromUrl{
-                for _ in 0..<_images.count{
-                    self.images.append(self.placeholderImage ?? UIImage())
-                }
-                for (idx,value) in _images.enumerated(){
-                    self.downLoadImageWithURL(URL.init(string: value)!, success: {[unowned self] (image:UIImage?, url:URL?) in
-                        if image != nil{
-                            let arange = idx..<idx+1
-                            self.images.replaceSubrange(arange, with: [image!])
-                            DispatchQueue.main.async {
-                                self.commoninit()
-                            }
+            for (idx,model) in images.enumerated(){
+                let tempM = model
+                if var url = tempM.url {
+                    url = url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+                    self.downLoadImageWithURL(URL(string: url), success: {[weak self] (image:UIImage, url:URL,fromCache:Bool) in
+                        tempM.image = image
+                        tempM.isLocal = fromCache
+                        self?.images.replaceSubrange(idx..<idx+1, with: [tempM])
+                        DispatchQueue.main.async {
+                            self?.commoninit()
                         }
                     })
-                }
-                
-            }else{
-                for imageName in _images{
-                    self.images.append(UIImage.init(named: imageName)!)
                 }
             }
         }
     }
     
-    func downLoadImageWithURL(_ url:URL ,success:@escaping ((_ image:UIImage,_ url:URL)->())) {
+    func downLoadImageWithURL(_ url:URL? ,success:@escaping ((_ image:UIImage,_ url:URL,_ fromCache:Bool)->())) {
+        guard let url = url else { return }
         let path = getCachePatch() 
         let fileManage = FileManager.default
         if !fileManage .fileExists(atPath: path) {
@@ -179,7 +178,7 @@ public class MSScrollView: UIView,UIScrollViewDelegate,UIGestureRecognizerDelega
         let cachePatch = (path as NSString).appendingPathComponent(url.absoluteString.ms_md5)
         if fileManage .fileExists(atPath: cachePatch) {
             if let image = UIImage.init(contentsOfFile: cachePatch){
-                success(image,url)
+                success(image,url,true)
             }
         }else{
             let sessionConfiguration = URLSessionConfiguration.default
@@ -192,7 +191,7 @@ public class MSScrollView: UIView,UIScrollViewDelegate,UIGestureRecognizerDelega
                     let toPath = (path as NSString).appendingPathComponent(url.absoluteString.ms_md5)
                     try? fileManage.moveItem(atPath: (location?.path)!, toPath: toPath)
                     if let image = UIImage.init(contentsOfFile: toPath){
-                        success(image,(respone?.url)!)
+                        success(image,url,false)
                     }
                 }
             })
@@ -235,21 +234,21 @@ public class MSScrollView: UIView,UIScrollViewDelegate,UIGestureRecognizerDelega
             return
         }
         if currentPage == 0 {
-            self.firstImageView.image = images.last
-            self.secondImageView.image = images[currentPage]
+            self.firstImageView.fillImageModel(images.last)
+            self.secondImageView.fillImageModel(images[currentPage])
             if images.count == 1 {
-                self.threeImageView.image = images.last
+                self.threeImageView.fillImageModel(images.last)
             }else{
-                self.threeImageView.image = images[currentPage + 1]
+                self.threeImageView.fillImageModel(images[currentPage + 1])
             }
         }else if currentPage == (images.count) - 1{
-            self.firstImageView.image = images[currentPage - 1]
-            self.secondImageView.image = images[currentPage]
-            self.threeImageView.image = images.first
+            self.firstImageView.fillImageModel(images[currentPage - 1])
+            self.secondImageView.fillImageModel(images[currentPage])
+            self.threeImageView.fillImageModel(images.first)
         }else{
-            self.firstImageView.image = images[currentPage - 1]
-            self.secondImageView.image = images[currentPage]
-            self.threeImageView.image = images[currentPage + 1]
+            self.firstImageView.fillImageModel(images[currentPage - 1])
+            self.secondImageView.fillImageModel(images[currentPage])
+            self.threeImageView.fillImageModel(images[currentPage + 1])
         }
         pageControl?.currentPage = currentPage
         if self.direction == MSCycleDirection.MSCycleDirectionHorizontal {
@@ -368,5 +367,18 @@ public class MSScrollView: UIView,UIScrollViewDelegate,UIGestureRecognizerDelega
         
     }
 }
+fileprivate extension UIImageView{
+    func fillImageModel(_ model:MSImageModel?) {
+        if let model = model,model.animated && !model.isLocal {
+            model.isLocal = true
+            let transition = CATransition()
+            transition.type = .fade
+            transition.duration = 0.5
+            transition.timingFunction = CAMediaTimingFunction.init(name: CAMediaTimingFunctionName.easeInEaseOut)
+            self.layer.add(transition, forKey: "animated")
+        }
+        self.image = model?.image
 
+    }
+}
 
