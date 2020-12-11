@@ -64,7 +64,8 @@ public class MSScrollView: UIView,UIScrollViewDelegate,UIGestureRecognizerDelega
             addPageControl()
         }
     }
-   public var placeholderImage :UIImage?
+    //后台停用定时器
+    public var stopPlayInBackGround = true
     
     public var imageModels : [MSImageModel] = []{
         didSet{
@@ -102,6 +103,21 @@ public class MSScrollView: UIView,UIScrollViewDelegate,UIGestureRecognizerDelega
         secondImageView = self.ImageView()
         threeImageView = self.ImageView()
         self.commoninit()
+        NotificationCenter.default.addObserver(self, selector: #selector(enterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(enterForground), name: UIApplication.didBecomeActiveNotification, object: nil)
+    }
+    @objc func enterBackground(){
+        if stopPlayInBackGround{
+            removeTimer()
+        }
+    }
+    @objc func enterForground(){
+        if self.isAutoPlay && stopPlayInBackGround{
+            addTimer()
+        }
+    }
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
