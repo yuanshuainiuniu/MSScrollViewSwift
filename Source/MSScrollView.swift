@@ -17,8 +17,10 @@ public enum MSPageControlDirection :Int{
     case MSPageControl_Left
     case MSPageControl_Right
 }
-public protocol MSScrollViewDelegate:NSObjectProtocol{
-    func MSScrollViewSelected(_ msScrollView:MSScrollView,didSelectPage:NSInteger)
+@objc public protocol MSScrollViewDelegate:NSObjectProtocol{
+    
+    @objc optional func MSScrollViewSelected(_ msScrollView:MSScrollView,didSelectPage:NSInteger)
+    @objc optional func MSScrollViewDidAppear(_ msScrollView:MSScrollView,didSelectPage:NSInteger)
 }
 public class MSImageModel:NSObject{
     //占位图
@@ -75,6 +77,7 @@ public class MSScrollView: UIView,UIScrollViewDelegate,UIGestureRecognizerDelega
     
     var scrollView : UIScrollView!
     var currentPage:Int = 0
+    var lastPage:Int = -1
     
     private var AutoTimer :Timer?
     
@@ -228,7 +231,7 @@ public class MSScrollView: UIView,UIScrollViewDelegate,UIGestureRecognizerDelega
         self.downloadTaskArray.removeAll()
     }
     @objc func singleTapGestureRecognizer() -> Void {
-        delegate?.MSScrollViewSelected(self, didSelectPage: currentPage)
+        delegate?.MSScrollViewSelected?(self, didSelectPage: currentPage)
     }
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         if gestureRecognizer.isKind(of: UIPanGestureRecognizer.self) {
@@ -274,6 +277,12 @@ public class MSScrollView: UIView,UIScrollViewDelegate,UIGestureRecognizerDelega
         }else{
             scrollView.setContentOffset(CGPoint.init(x: 0, y: self.frame.size.height), animated: false)
         }
+        if lastPage != currentPage {
+            lastPage = currentPage
+            print("---:\(currentPage)")
+            delegate?.MSScrollViewDidAppear?(self, didSelectPage: currentPage)
+        }
+
     }
     @objc func autoShowNextImage() -> Void {
         if self.direction == MSCycleDirection.MSCycleDirectionHorizontal {
@@ -366,6 +375,7 @@ public class MSScrollView: UIView,UIScrollViewDelegate,UIGestureRecognizerDelega
             }
             
         }
+
     }
     func getCachePatch() -> String {
         let docPath = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)[0] as NSString
