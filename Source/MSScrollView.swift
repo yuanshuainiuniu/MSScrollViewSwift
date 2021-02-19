@@ -20,7 +20,7 @@ public enum MSPageControlDirection :Int{
 @objc public protocol MSScrollViewDelegate:NSObjectProtocol{
     
     @objc optional func MSScrollViewSelected(_ msScrollView:MSScrollView,didSelectPage:NSInteger)
-    @objc optional func MSScrollViewDidAppear(_ msScrollView:MSScrollView,didSelectPage:NSInteger)
+    @objc optional func MSScrollViewDidAppear(_ msScrollView:MSScrollView,currentPage:NSInteger)
 }
 public class MSImageModel:NSObject{
     //占位图
@@ -279,7 +279,7 @@ public class MSScrollView: UIView,UIScrollViewDelegate,UIGestureRecognizerDelega
         }
         if lastPage != currentPage {
             lastPage = currentPage
-            delegate?.MSScrollViewDidAppear?(self, didSelectPage: currentPage)
+            delegate?.MSScrollViewDidAppear?(self, currentPage: currentPage)
         }
 
     }
