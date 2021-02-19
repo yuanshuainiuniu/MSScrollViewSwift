@@ -30,6 +30,7 @@ class ViewController: UIViewController,MSScrollViewDelegate {
         msScrollView.timeInterval = 5
         msScrollView.pageControlOffset = UIOffset.init(horizontal: -5, vertical: 5)
         msScrollView.pageControlDir = MSPageControlDirection.MSPageControl_Center
+        msScrollView.direction = .MSCycleDirectionVertical
         self.view.addSubview(msScrollView)
         
         var modelArr = [MSImageModel]()

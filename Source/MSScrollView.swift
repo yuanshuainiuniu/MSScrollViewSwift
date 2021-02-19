@@ -347,9 +347,16 @@ public class MSScrollView: UIView,UIScrollViewDelegate,UIGestureRecognizerDelega
             }
         }else{
             let y = scrollView.contentOffset.y
-            //up
-            if y > floor(self.frame.size.height) {
+            if y <= 0 {
+                if currentPage - 1 < 0 {
+                    currentPage = (images.count) - 1
+                }else{
+                    currentPage -= 1
+                }
+                self.reloadData()
                 
+            }
+            if y >= floor(self.frame.size.height * 2) {
                 if currentPage == (images.count) - 1 {
                     currentPage = 0
                 }else{
@@ -357,15 +364,7 @@ public class MSScrollView: UIView,UIScrollViewDelegate,UIGestureRecognizerDelega
                 }
                 self.reloadData()
             }
-            //down
-            if y < floor(self.frame.size.height) {
-                if currentPage - 1 < 0 {
-                    currentPage = (images.count) - 1
-                }else{
-                    currentPage -= 1
-                }
-                self.reloadData()
-            }
+            
         }
     }
     func getCachePatch() -> String {
