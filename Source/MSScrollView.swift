@@ -279,7 +279,6 @@ public class MSScrollView: UIView,UIScrollViewDelegate,UIGestureRecognizerDelega
         }
         if lastPage != currentPage {
             lastPage = currentPage
-            print("---:\(currentPage)")
             delegate?.MSScrollViewDidAppear?(self, didSelectPage: currentPage)
         }
 
