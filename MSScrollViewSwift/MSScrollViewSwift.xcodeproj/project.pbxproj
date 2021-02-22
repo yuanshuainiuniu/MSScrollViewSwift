@@ -16,6 +16,7 @@
 		F392530C1F15ED5A00FDBF92 /* CustomerPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39253081F15ED5A00FDBF92 /* CustomerPageControl.swift */; };
 		F392530D1F15ED5A00FDBF92 /* MSScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39253091F15ED5A00FDBF92 /* MSScrollView.swift */; };
 		F3A5363F2581C581000A586A /* MSScrollViewSwift.podspec in Resources */ = {isa = PBXBuildFile; fileRef = F3A5363E2581C581000A586A /* MSScrollViewSwift.podspec */; };
+		F3A5F52225E3BE8F006F0A20 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = F3A5F52125E3BE8F006F0A20 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		F39253081F15ED5A00FDBF92 /* CustomerPageControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomerPageControl.swift; sourceTree = "<group>"; };
 		F39253091F15ED5A00FDBF92 /* MSScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MSScrollView.swift; sourceTree = "<group>"; };
 		F3A5363E2581C581000A586A /* MSScrollViewSwift.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = MSScrollViewSwift.podspec; path = ../MSScrollViewSwift.podspec; sourceTree = "<group>"; };
+		F3A5F52125E3BE8F006F0A20 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,6 +48,7 @@
 		F37F080E1F14B46F00A5EDA0 = {
 			isa = PBXGroup;
 			children = (
+				F3A5F52125E3BE8F006F0A20 /* README.md */,
 				F3A5363E2581C581000A586A /* MSScrollViewSwift.podspec */,
 				F39253071F15ED5A00FDBF92 /* Source */,
 				F37F08191F14B46F00A5EDA0 /* MSScrollViewSwift */,
@@ -147,6 +150,7 @@
 			files = (
 				F3A5363F2581C581000A586A /* MSScrollViewSwift.podspec in Resources */,
 				F37F08251F14B46F00A5EDA0 /* LaunchScreen.storyboard in Resources */,
+				F3A5F52225E3BE8F006F0A20 /* README.md in Resources */,
 				F37F08221F14B46F00A5EDA0 /* Assets.xcassets in Resources */,
 				F37F08201F14B46F00A5EDA0 /* Main.storyboard in Resources */,
 			);
