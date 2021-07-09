@@ -28,7 +28,7 @@ class ViewController: UIViewController,MSScrollViewDelegate {
         msScrollView.frame = CGRect.init(x: 0, y: 100, width: self.view.frame.size.width, height: 200)
         msScrollView.isAutoPlay = true
         msScrollView.timeInterval = 5
-        msScrollView.expireTimeInterval = 0
+//        msScrollView.expireTimeInterval = 0
         msScrollView.pageControlOffset = UIOffset.init(horizontal: -5, vertical: 5)
         msScrollView.pageControlDir = MSPageControlDirection.MSPageControl_Center
         msScrollView.pageControl?.currentPageIndicatorTintColor = UIColor.orange
@@ -48,10 +48,10 @@ class ViewController: UIViewController,MSScrollViewDelegate {
         msScrollView.imageModels = modelArr
         msScrollView.delegate = self
         
-        Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
-            msScrollView.expireTimeInterval = 0
-            msScrollView.imageModels = modelArr
-        }
+//        Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
+//            msScrollView.expireTimeInterval = 0
+//            msScrollView.imageModels = modelArr
+//        }
 
     }
 
