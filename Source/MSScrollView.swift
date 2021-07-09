@@ -34,7 +34,7 @@ public class MSImageModel:NSObject{
     //是否是本地图片
     fileprivate var isLocal = true
 }
-public class MSScrollView: UIView,UIScrollViewDelegate,UIGestureRecognizerDelegate {
+public class MSScrollView: UIView,UIScrollViewDelegate,UIGestureRecognizerDelegate, URLSessionDelegate {
    public var isAutoPlay :Bool = false{
         didSet{
             commoninit()
@@ -42,6 +42,36 @@ public class MSScrollView: UIView,UIScrollViewDelegate,UIGestureRecognizerDelega
     }
    public weak var delegate:MSScrollViewDelegate?
     
+    private let MSScrollView_expire = "MSScrollView_expire"
+    /// 缓存时长，单位s
+    public var expireTimeInterval:TimeInterval?{
+        didSet{
+            //设置缓存时长
+            guard let expireTime = expireTimeInterval else { return  }
+            //清理过期缓存
+            DispatchQueue.main.async {
+                var temp = self.cacheExpireDict
+                for (key,value) in  temp{
+                    let path = (self.msCachePath as NSString).appendingPathComponent(key)
+                    let fileManager = FileManager.default
+                    if Date().timeIntervalSince1970 > value + expireTime {
+                        if fileManager.fileExists(atPath: path) {
+                          try?fileManager.removeItem(atPath: path)
+                            temp.removeValue(forKey: path)
+                        }
+                        
+                    }
+                }
+                //线程安全
+                if let data = try?JSONSerialization.data(withJSONObject: temp, options: JSONSerialization.WritingOptions.fragmentsAllowed) {
+                    try?data.write(to: URL(fileURLWithPath: self.expirePath))
+                }
+                
+            }
+            
+            
+        }
+    }
    public var pageControl : CustomerPageControl?
    public var timeInterval:TimeInterval = 0.0{
         didSet{
@@ -85,7 +115,7 @@ public class MSScrollView: UIView,UIScrollViewDelegate,UIGestureRecognizerDelega
     var secondImageView :UIImageView!
     var threeImageView :UIImageView!
     var tapGestureRecognizer :UITapGestureRecognizer?
-    var downloadTaskArray = [URLSessionDownloadTask]()
+    var downloadTaskArray = [URLSession]()
     
    
     
@@ -172,6 +202,7 @@ public class MSScrollView: UIView,UIScrollViewDelegate,UIGestureRecognizerDelega
         DispatchQueue.main.async {
             self.images = images
             self.cancleAllTask()
+            self.commoninit()
             for (idx,model) in images.enumerated(){
                 let tempM = model
                 if var url = tempM.url {
@@ -188,45 +219,83 @@ public class MSScrollView: UIView,UIScrollViewDelegate,UIGestureRecognizerDelega
             }
         }
     }
+    lazy var downloadQueue:OperationQueue = {
+        let queue = OperationQueue()
+        queue.maxConcurrentOperationCount = 10
+        return queue
+    }()
     
+    lazy var expirePath:String = {
+        return (msCachePath as NSString).appendingPathComponent("expireTime")
+    }()
+    lazy var cacheExpireDict:[String:Double] = {
+        guard let cache = try? JSONSerialization.jsonObject(with: Data.init(contentsOf: URL(fileURLWithPath: expirePath)), options: JSONSerialization.ReadingOptions.fragmentsAllowed) as? [String:Double] else {
+            return [String:Double]()
+        }
+        return cache
+    }()
     func downLoadImageWithURL(_ url:URL? ,success:@escaping ((_ image:UIImage,_ url:URL,_ fromCache:Bool)->())) {
         guard let url = url else { return }
-        let path = getCachePatch() 
+        let path = msCachePath
         let fileManage = FileManager.default
         if !fileManage .fileExists(atPath: path) {
           try? fileManage.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
+    
         }
-        let cachePatch = (path as NSString).appendingPathComponent(url.absoluteString.ms_md5)
+        let fileName = url.absoluteString.ms_md5
+        let cachePatch = (path as NSString).appendingPathComponent(fileName)
         if fileManage .fileExists(atPath: cachePatch) {
+            let semaphore = DispatchSemaphore(value: 1)
+            semaphore.wait()
             if let image = UIImage.init(contentsOfFile: cachePatch){
                 success(image,url,true)
+            }else{//图片加载失败清缓存
+                try? fileManage.removeItem(atPath: cachePatch)
             }
+            semaphore.signal()
         }else{
             let sessionConfiguration = URLSessionConfiguration.default
             sessionConfiguration.timeoutIntervalForRequest = 15
-            let queue = OperationQueue()
-            queue.maxConcurrentOperationCount = 6
-            let session = URLSession.init(configuration: sessionConfiguration, delegate: nil, delegateQueue: queue)
-            let downloadTask = session.downloadTask(with: url, completionHandler: { (location:URL?, respone:URLResponse?, error:Error?) in
+            
+            let session = URLSession.init(configuration: sessionConfiguration, delegate: self, delegateQueue: downloadQueue)
+            session.downloadTask(with: url, completionHandler: {(location:URL?, respone:URLResponse?, error:Error?) in
+                session.finishTasksAndInvalidate()
                 if error == nil{
-                    let toPath = (path as NSString).appendingPathComponent(url.absoluteString.ms_md5)
-                    try? fileManage.moveItem(atPath: (location?.path)!, toPath: toPath)
-                    if let image = UIImage.init(contentsOfFile: toPath){
-                        success(image,url,false)
+                    do {
+                        let semaphore = DispatchSemaphore(value: 1)
+                        semaphore.wait()
+                        try fileManage.moveItem(atPath: (location?.path)!, toPath: cachePatch)
+                        if let image = UIImage.init(contentsOfFile: cachePatch){
+                            success(image,url,false)
+                            self.cacheExpireDict[fileName] = NSDate().timeIntervalSince1970
+                            if let data = try? JSONSerialization.data(withJSONObject: self.cacheExpireDict, options: JSONSerialization.WritingOptions.fragmentsAllowed) {
+                                try data.write(to: URL(fileURLWithPath: self.expirePath))
+                            }
+                        }
+                        semaphore.signal()
+                    } catch {
+                        
                     }
+                    
                 }
-            })
-            downloadTask.resume()
-            self.downloadTaskArray.append(downloadTask)
+                
+            }).resume()
+            self.downloadTaskArray.append(session)
             
         }
         
         
     }
+    public func urlSession(_ session: URLSession, didBecomeInvalidWithError error: Error?) {
+        DispatchQueue.main.async {
+            self.downloadTaskArray.removeAll(where: {$0 == session})
+        }
+        
+    }
     
     func cancleAllTask() -> Void {
-        for task in self.downloadTaskArray {
-            task.cancel()
+        for session in self.downloadTaskArray {
+            session.invalidateAndCancel()
         }
         self.downloadTaskArray.removeAll()
     }
@@ -376,15 +445,15 @@ public class MSScrollView: UIView,UIScrollViewDelegate,UIGestureRecognizerDelega
         }
 
     }
-    func getCachePatch() -> String {
+    lazy var msCachePath:String = {
         let docPath = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)[0] as NSString
         let box = Bundle.main.infoDictionary?[kCFBundleIdentifierKey as String] as! String + ".MSCache"
         
         return docPath.appendingPathComponent(box)
-    }
-    func clearCache() -> Void {
+    }()
+    @objc public func clearCache() -> Void {
         
-        let path = getCachePatch()
+        let path = msCachePath
         
         let fileManage = FileManager.default
         if fileManage .fileExists(atPath: path) {
